@@ -8,9 +8,20 @@
 
 ## 📸 演示
 
-![Daily Driver Demo](assets/demo.gif)
+### 工作流程
+![Daily Driver Workflow](assets/workflow-diagram.png)
 
-*上图：Daily Driver 的完整工作流程 —— 从启动一天到任务完成*
+*上图：Daily Driver 的 5 层检查点工作流程*
+
+### 文件结构
+![File Structure](assets/screenshots/file-structure.png)
+
+*上图：知识库文件夹结构*
+
+### 三文件系统
+![Task Files](assets/screenshots/task-files-preview.png)
+
+*上图：每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
 
 ---
 
@@ -174,10 +185,14 @@ Agent：[总结完成的任务 🎉]
 ## 🖼️ 截图展示
 
 ### 任务文件夹结构
-![任务文件夹](assets/screenshots/task-folders.png)
+![任务文件夹](assets/screenshots/file-structure.png)
 
-### Obsidian 中的效果
-![Obsidian预览](assets/screenshots/obsidian-preview.png)
+*知识库的文件夹结构，按日期组织任务*
+
+### 三文件系统
+![任务文件](assets/screenshots/task-files-preview.png)
+
+*每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
 
 ---
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Diagram</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #252526;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #4ec9b0;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .box {
+            background: #3c3c3c;
+            border: 2px solid #569cd6;
+            border-radius: 8px;
+            padding: 15px 25px;
+            min-width: 200px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .box.highlight {
+            border-color: #4ec9b0;
+            background: #2d3d3a;
+        }
+        .box.decision {
+            border-color: #dcb67a;
+            background: #3d3a2d;
+        }
+        .arrow {
+            font-size: 24px;
+            color: #569cd6;
+            margin: 5px 0;
+        }
+        .checkpoint {
+            background: #ce9178;
+            color: #1e1e1e;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Daily Driver 工作流程</h1>
+        <div class="flow">
+            <div class="step">
+                <span class="checkpoint">CP1</span>
+                <div class="box">用户输入<br>"开启今天的工作"</div>
+            </div>
+            <div class="arrow">⬇️</div>
+            <div class="step">
+                <span class="checkpoint">CP2</span>
+                <div class="box decision">检测昨天<br>未完成任务</div>
+            </div>
+            <div class="arrow">⬇️</div>
+            <div class="step">
+                <span class="checkpoint">CP3</span>
+                <div class="box">显示想法停车场<br>询问能量状态</div>
+            </div>
+            <div class="arrow">⬇️</div>
+            <div class="step">
+                <span class="checkpoint">CP4</span>
+                <div class="box decision">确认任务规格<br>锁定任务边界</div>
+            </div>
+            <div class="arrow">⬇️</div>
+            <div class="step">
+                <span class="checkpoint">CP5</span>
+                <div class="box highlight">创建任务文件夹<br>生成三文件系统</div>
+            </div>
+            <div class="arrow">⬇️</div>
+            <div class="step">
+                <div class="box">展开任务<br>实时更新文件</div>
+            </div>
+            <div class="arrow">⬇️</div>
+            <div class="step">
+                <div class="box highlight">任务完成<br>归档总结</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

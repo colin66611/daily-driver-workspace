@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+.env.local
+
+# Backup files
+*.bak
+*.backup
+
+# Obsidian
+.obsidian/workspace.json
+.obsidian/cache
+
+# Temporary files
+.tmp/
+temp/

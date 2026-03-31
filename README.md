@@ -24,7 +24,7 @@
 
 ### 30秒看懂 Daily Driver
 
-![Daily Driver Demo](assets/demo.gif)
+<video src="assets/demo.mp4" autoplay loop muted playsinline width="100%"></video>
 
 <details>
 <summary>🎬 查看动图解析（点击展开）</summary>
@@ -277,10 +277,8 @@ Agent：[总结完成的任务 🎉]
 
 ## 🙏 致谢
 
-- **三文件系统**思想受到 [planning-with-files](https://github.com/ningding97/oworkflow-planning-with-files) 的启发
+- **三文件系统**思想受到 [planning-with-files](https://github.com/OthmanAdi/planning-with-files) 的启发
 - 灵感来自 [Claude Code](https://claude.ai/code)
-- 文件系统工作流思想受 [Zettelkasten](https://zettelkasten.de/) 启发
-- 模板设计参考 [PARA Method](https://fortelabs.com/blog/para/)
 
 ---
 

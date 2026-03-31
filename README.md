@@ -8,30 +8,19 @@
 
 ## 📸 演示
 
-### 完整工作流程
-
-#### Step 1: 启动今天的工作
-![Demo Step 1](assets/demo-step-1.png)
-*检测昨天任务 → 显示想法停车场 → 确认今日任务 → 创建文件夹*
-
-#### Step 2: 展开并执行任务
-![Demo Step 2](assets/demo-step-2.png)
-*读取 task_plan.md → 实时记录发现 → 自动保存到文件*
-
-#### Step 3: 任务完成与总结
-![Demo Step 3](assets/demo-step-3.png)
-*标记完成 → 生成总结 → 归档任务 → 结束一天*
-
 ### 工作流程图
 ![Daily Driver Workflow](assets/workflow-diagram.png)
+
 *上图：Daily Driver 的 5 层检查点工作流程*
 
 ### 文件结构
 ![File Structure](assets/screenshots/file-structure.png)
+
 *上图：知识库文件夹结构*
 
 ### 三文件系统
 ![Task Files](assets/screenshots/task-files-preview.png)
+
 *上图：每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
 
 ---
@@ -97,17 +86,20 @@ mkdir -p ~/my-notes/{learning,life,work,others/daily}
 ```
 你：开启今天的工作
 
-Agent：今天的能量状态如何？[高 / 中 / 低]
+Agent：📋 昨天的未完成任务：
+       • M1: [任务名] (⏸ 进行中)
+       • M2: [任务名] (⏸ 进行中)
 
-你：中
+       🅿️ 想法停车场：
+       • 学习新技术
+       • 整理读书笔记
 
-Agent：🅿️ 想法停车场内容：
-       - [想法1]
-       - [想法2]
+       🎯 今天你打算做些什么？可以：
+       - 延续昨天的任务
+       - 从停车场选一个想法开始
+       - 说一个新的任务
 
-       请告诉我今天想处理哪些事项？
-
-你：处理想法1和M3任务
+你：处理学习新技术，延续M2
 
 Agent：[生成任务提案并逐条确认]
        [确认规格]

@@ -24,7 +24,7 @@
 
 ### 30秒看懂 Daily Driver
 
-<video src="assets/demo.mp4" autoplay loop muted playsinline width="100%"></video>
+<video src="https://github.com/user-attachments/assets/571957493-4666de1b-db6d-44e1-8fb6-146818a24a0c" autoplay loop muted playsinline width="100%"></video>
 
 <details>
 <summary>🎬 查看视频解析（点击展开）</summary>

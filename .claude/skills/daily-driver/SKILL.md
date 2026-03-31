@@ -42,7 +42,7 @@ if [ -z "$yesterday" ]; then
     yesterday=$(date -d 'yesterday' '+%Y-%m-%d' 2>/dev/null)
 fi
 
-daily_path="${PWD}/others/daily"
+daily_path="${DAILY_WORK_DIR:-${PWD}/others/daily}"
 
 # 查找昨天的任务目录
 ls -d "$daily_path/$yesterday"/task_*/ 2>/dev/null
@@ -153,7 +153,7 @@ echo "
 
 ```bash
 # 先检查今日文件夹是否已存在（支持多窗口并行）
-today_path="${PWD}/others/daily/$(date '+%Y-%m-%d')"
+today_path="$CLAUDE_PROJECT_DIR/../others/daily/$(date '+%Y-%m-%d')"
 today_record="$today_path/$(date '+%Y-%m-%d').md"
 
 if [ -d "$today_path" ] && [ -f "$today_record" ]; then
@@ -233,11 +233,11 @@ fi
 
 ```bash
 # 创建任务文件夹
-mkdir -p "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/"
+mkdir -p "$CLAUDE_PROJECT_DIR/../others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/"
 
 # 立即创建三文件
 # 1. task_plan.md
-cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/task_plan.md" << 'EOF'
+cat > "$CLAUDE_PROJECT_DIR/../others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/task_plan.md" << 'EOF'
 # 任务计划：M1 - [任务名]
 
 **任务状态**: ⏸ 进行中
@@ -272,7 +272,7 @@ cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/task_plan.md
 EOF
 
 # 2. findings.md
-cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/findings.md" << 'EOF' << 'EOF'
+cat > "$CLAUDE_PROJECT_DIR/../others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/findings.md" << 'EOF'
 # 研究发现：M1 - [任务名]
 
 ## 关键发现
@@ -280,8 +280,8 @@ cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/findings.md"
 ## 参考资料
 EOF
 
-# 3. progress.md  
-cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/progress.md" << 'EOF' << 'EOF'
+# 3. progress.md
+cat > "$CLAUDE_PROJECT_DIR/../others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/progress.md" << 'EOF'
 # 进展日志：M1 - [任务名]
 
 ## Session 1: $(date '+%Y-%m-%d')
@@ -302,7 +302,7 @@ EOF
 **同时更新今日记录文件**：
 ```bash
 # 添加任务到今日记录
-echo "- M1: [任务名] (状态: ⏸ 进行中)" >> "${PWD}/others/daily/$(date '+%Y-%m-%d')/$(date '+%Y-%m-%d').md"
+echo "- M1: [任务名] (状态: ⏸ 进行中)" >> "$CLAUDE_PROJECT_DIR/../others/daily/$(date '+%Y-%m-%d')/$(date '+%Y-%m-%d').md"
 ```
 
 ---
@@ -367,43 +367,9 @@ echo "
 2. **生成完成报告**：基于文件内容生成总结
 3. **移动已完成任务到归档**：
    ```bash
-   mv "/path/to/task_M1_*/" "${PWD}/others/daily/completed/"
+   mv "/path/to/task_M1_*/" "$CLAUDE_PROJECT_DIR/../others/daily/completed/"
    ```
 
 4. **更新停车场**：读取/更新 `_Idea-Parking-Lot.md`
 
 ---
-
-## 实时更新的好处
-
-1. **永不丢失**：每一步都有文件记录
-2. **可恢复**：中断后可从文件恢复状态
-3. **版本历史**：文件修改历史就是工作历史
-4. **外部记忆**：不依赖 Context Window
-
----
-
-## 使用方式
-
-**和之前一样**：
-- `启动今天的工作`
-- `展开 M1`
-- `结束今天的工作`
-
-**但背后实时**：
-- 立即创建文件夹和文件
-- 实时更新进展
-- 自动保存所有状态
-
----
-
-## 核心改进
-
-| 改进点 | 旧版本 | 新版本 |
-|--------|--------|--------|
-| 文件创建时机 | 最后批量创建 | **实时立即创建** |
-| 状态保存 | 依赖内存 | **实时写入文件** |
-| 恢复能力 | 有限 | **完全可恢复** |
-| 历史追踪 | 无 | **完整文件历史** |
-
-**现在你的工作完全由文件驱动，而不是对话驱动。**

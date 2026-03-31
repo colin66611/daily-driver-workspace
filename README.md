@@ -234,11 +234,6 @@ Agent：[总结完成的任务 🎉]
 
 *Daily Driver 的 5 层检查点工作流程*
 
-### 文件结构
-![File Structure](assets/screenshots/file-structure.png)
-
-*知识库的文件夹结构*
-
 ### 三文件系统
 ![Task Files](assets/screenshots/task-files-preview.png)
 

@@ -1,14 +1,22 @@
 # Daily Driver Workspace
 
-> 🚀 AI 驱动的个人工作流管理系统 —— 让文件成为你的外部记忆
+> Daily Driver 是 AI 协作的「任务管理副驾驶」，让你的 Agent 工作有迹可循、有始有终。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
+## 三句话讲清 Daily Driver
+
+- **每日启动**：说"开启工作"，Agent 自动检测昨日未完成任务 + 读取想法停车场
+- **任务创建**：确认今日任务后，自动生成文件夹和**三文件系统**（plan/progress/findings）
+- **实时记录**：执行中自动保存到文件，随时中断随时恢复，不再依赖 AI 的上下文窗口
+
+---
+
 ## 📸 演示
 
-### 启动 Daily Driver（完整流程）
+### 30秒看懂 Daily Driver
 
 ![Daily Driver Demo](assets/demo.gif)
 
@@ -27,36 +35,51 @@
 
 ---
 
-### 工作流程图
-![Daily Driver Workflow](assets/workflow-diagram.png)
+## ✨ 核心功能
 
-*上图：Daily Driver 的 5 层检查点工作流程*
-
-### 文件结构
-![File Structure](assets/screenshots/file-structure.png)
-
-*上图：知识库文件夹结构*
-
-### 三文件系统
-![Task Files](assets/screenshots/task-files-preview.png)
-
-*上图：每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
+| 功能 | 说明 |
+|------|------|
+| 🔍 **昨日任务检测** | 自动读取昨日未完成的 M1/M2/M3 任务，询问是否延续 |
+| 🅿️ **想法停车场** | 集中管理待办想法，随时取用，防止灵感流失 |
+| 🗂️ **三文件系统** | 每个任务标配 plan/progress/findings，结构化记录完整生命周期 |
+| ✅ **5层检查点** | 从需求澄清到边界检查，防止 AI 跑偏 |
+| 🤖 **Agent 自助安装** | 读取 AGENT_SETUP.md 后自动完成全部部署 |
 
 ---
 
-## ✨ 核心特性
+## 🧠 设计巧思
 
-### 🗂️ 文件驱动
-所有任务状态保存在文件系统，不依赖 AI 的 Context Window。随时中断，随时恢复。
+### 文件即记忆
 
-### 🔒 强制闭环
-每个任务必须有**计划 → 执行 → 发现 → 完成**的完整记录，拒绝悬空对话。
+所有任务状态保存在文件系统，不依赖 AI 的 Context Window。
 
-### 🤖 Agent 自助安装
-Agent 读取 `AGENT_SETUP.md` 后自动完成全部部署，无需手动配置。
+- **随时中断**：关闭终端、切换设备，不影响任务状态
+- **随时恢复**：打开任意会话，从文件继续工作
+- **版本历史**：Git 记录完整工作轨迹
 
-### 📊 5层检查点体系
-从需求澄清到边界检查，确保 AI 不会跑偏。
+### 自动化
+
+Agent 自动完成繁琐的「记账」工作：
+
+- **自动检测**：昨日有哪些任务未完成
+- **自动创建**：任务确认后立即生成文件夹和文件
+- **自动记录**：每步进展实时写入 progress.md
+
+你只负责决策，Agent 负责执行。
+
+### 强制闭环
+
+每个任务必须有完整记录：
+
+```
+计划 → 执行 → 发现 → 完成
+```
+
+- **task_plan.md**：明确目标、交付物、完成标准
+- **progress.md**：执行日志和时间线
+- **findings.md**：研究发现和参考资料
+
+拒绝悬空对话，每个任务都有始有终。
 
 ---
 
@@ -196,25 +219,30 @@ Agent：[总结完成的任务 🎉]
 
 ---
 
+## 🖼️ 更多截图
+
+### 工作流程图
+![Daily Driver Workflow](assets/workflow-diagram.png)
+
+*Daily Driver 的 5 层检查点工作流程*
+
+### 文件结构
+![File Structure](assets/screenshots/file-structure.png)
+
+*知识库的文件夹结构*
+
+### 三文件系统
+![Task Files](assets/screenshots/task-files-preview.png)
+
+*每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
+
+---
+
 ## 📚 文档
 
 - [AGENT_SETUP.md](AGENT_SETUP.md) - 给 AI 看的安装指南
 - [示例工作区](examples/) - 完整的工作区示例
 - [设计文档](docs/design.md) - 系统设计详情
-
----
-
-## 🖼️ 截图展示
-
-### 任务文件夹结构
-![任务文件夹](assets/screenshots/file-structure.png)
-
-*知识库的文件夹结构，按日期组织任务*
-
-### 三文件系统
-![任务文件](assets/screenshots/task-files-preview.png)
-
-*每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
 
 ---
 
@@ -246,6 +274,7 @@ Agent：[总结完成的任务 🎉]
 
 ## 🙏 致谢
 
+- **三文件系统**思想受到 [planning-with-files](https://github.com/ningding97/oworkflow-planning-with-files) 的启发
 - 灵感来自 [Claude Code](https://claude.ai/code)
 - 文件系统工作流思想受 [Zettelkasten](https://zettelkasten.de/) 启发
 - 模板设计参考 [PARA Method](https://fortelabs.com/blog/para/)

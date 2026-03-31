@@ -27,7 +27,7 @@
 <video src="assets/demo.mp4" autoplay loop muted playsinline width="100%"></video>
 
 <details>
-<summary>🎬 查看动图解析（点击展开）</summary>
+<summary>🎬 查看视频解析（点击展开）</summary>
 
 | 步骤 | 命令/输出 | 说明 |
 |------|-----------|------|

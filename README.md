@@ -1,6 +1,12 @@
 # Daily Driver Workspace
 
-> Daily Driver 是 AI 协作的「任务管理副驾驶」，让你的 Agent 工作有迹可循、有始有终。
+> 想象一下：你的 AI 助手有「长期记忆」。
+>
+> 你不需要记住昨天聊到哪，不用整理笔记，不用写文档——
+> 只需说"开启工作"，Agent 自动唤醒昨日任务、呈现今日选项、实时记录每一步。
+>
+> 文件是你的外脑，Agent 是你的副驾。
+> 你专注决策，剩下的交给 Daily Driver。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -69,7 +75,7 @@ Agent 自动完成繁琐的「记账」工作：
 
 ### 强制闭环
 
-> 本模式复用了 [planning-with-files](https://github.com/ningding97/oworkflow-planning-with-files) 的三文件思想，只做少量场景化改动。
+> 本模式复用了 [planning-with-files](https://github.com/OthmanAdi/planning-with-files) 的三文件思想，只做少量场景化改动。
 
 每个任务必须有完整记录：
 

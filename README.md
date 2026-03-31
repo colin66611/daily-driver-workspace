@@ -26,8 +26,8 @@
 
 <video src="https://github.com/user-attachments/assets/571957493-4666de1b-db6d-44e1-8fb6-146818a24a0c" autoplay loop muted playsinline width="100%"></video>
 
-<details>
-<summary>🎬 查看视频解析（点击展开）</summary>
+<details open>
+<summary>🎬 查看视频解析（点击收起）</summary>
 
 | 步骤 | 命令/输出 | 说明 |
 |------|-----------|------|
@@ -224,20 +224,6 @@ Agent：[总结完成的任务 🎉]
   ↓
 任务完成 → 归档
 ```
-
----
-
-## 🖼️ 更多截图
-
-### 工作流程图
-![Daily Driver Workflow](assets/workflow-diagram.png)
-
-*Daily Driver 的 5 层检查点工作流程*
-
-### 三文件系统
-![Task Files](assets/screenshots/task-files-preview.png)
-
-*每个任务包含 task_plan.md、progress.md、findings.md 三个文件*
 
 ---
 

@@ -17,11 +17,16 @@ test_script() {
     local name="$1"
     local cmd="$2"
     echo -n "Testing: $name ... "
-    if eval "$cmd" > /dev/null 2>&1; then
+    local output
+    local exit_code
+    output=$(eval "$cmd" 2>&1)
+    exit_code=$?
+    if [ $exit_code -eq 0 ]; then
         echo "✓ PASS"
         PASS=$((PASS + 1))
     else
-        echo "✗ FAIL"
+        echo "✗ FAIL (exit: $exit_code)"
+        echo "  Error: $output" | head -3
         FAIL=$((FAIL + 1))
     fi
 }

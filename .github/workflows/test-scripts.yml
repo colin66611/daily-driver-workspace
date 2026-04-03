@@ -5,6 +5,7 @@ on:
     paths:
       - '.claude/skills/**/*.sh'
       - 'test_skills.sh'
+      - '.github/workflows/test-scripts.yml'
 
 jobs:
   test:

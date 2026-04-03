@@ -2,6 +2,7 @@
 # Skill Scripts Test Suite
 # Run this to verify all scripts work correctly
 
+# Trigger CI for debugging
 set -e
 
 echo "==================================="

@@ -258,9 +258,70 @@ Daily Driver 把「记笔记」的过程自动化了：
 
 ## 🔧 系统要求
 
-- [Claude Code](https://claude.ai/code) 或 [OpenCode](https://github.com/your-username/opencode)
-- Unix-like 系统（macOS / Linux）
-- Git
+### Windows 用户（必须）
+
+| 软件 | 版本 | 用途 | 下载 |
+|------|------|------|------|
+| **Git for Windows** | ≥ 2.40 | 包含 Git Bash（bash shell 环境） | [git-scm.com](https://git-scm.com/download/win) |
+| **Node.js** | ≥ 18 | JavaScript 运行时，Claude Code 依赖 | [nodejs.org](https://nodejs.org/) |
+| **Claude Code CLI** | 最新 | AI 编程工具 | `npm install -g @anthropic/claude-code` |
+
+#### 安装后验证
+
+打开 **Git Bash**，运行以下命令验证：
+
+```bash
+# 验证 bash
+bash --version
+
+# 验证必要命令
+command -v bash   # 应显示路径
+command -v date   # 应显示路径
+command -v sed    # 应显示路径
+command -v find   # 应显示路径
+
+# 验证 Claude Code
+claude --version
+```
+
+#### 快速检查脚本
+
+```bash
+# 在 Git Bash 中运行
+echo "Bash: $(bash --version | head -1)"
+echo "Git: $(git --version)"
+echo "Claude: $(claude --version 2>/dev/null || echo '未安装')"
+echo ""
+echo "必需命令:"
+for cmd in bash date sed find grep; do
+    if command -v $cmd > /dev/null 2>&1; then
+        echo "  ✓ $cmd"
+    else
+        echo "  ✗ $cmd (缺失)"
+    fi
+done
+```
+
+#### 可选增强（推荐）
+
+| 软件 | 用途 |
+|------|------|
+| **Windows Terminal** | 更舒适的终端体验 |
+| **VS Code** | 与 Claude Code 配合使用 |
+
+#### 常见问题
+
+| 问题 | 解决 |
+|------|------|
+| `command not found` | 安装 Git for Windows，重启 Git Bash |
+| Claude Code 找不到 | 确保已安装并添加到 PATH |
+| 脚本执行报错 | 运行 `chmod +x *.sh` 给脚本加执行权限 |
+
+### macOS / Linux 用户
+
+- **Claude Code CLI**：已在本地安装
+- **Bash**：系统自带
+- 验证方式：运行 `claude --version` 确认已安装
 
 ---
 

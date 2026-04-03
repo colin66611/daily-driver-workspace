@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Minimal Skill Scripts Test Suite
 
-set -e
+# No set -e to allow full output capture
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.claude/skills/daily-driver/scripts"
 TWORKER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.claude/skills/task-worker/scripts"

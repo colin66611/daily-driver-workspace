@@ -1,0 +1,31 @@
+# 临时文件
+*.tmp
+*.log
+*.swp
+.DS_Store
+
+# 评估工作目录(保留示例)
+# iteration-*/
+# timing.json
+# grading.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Node
+node_modules/
+npm-debug.log
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# 敏感信息
+.env
+.env.local
+*.key
+*.pem

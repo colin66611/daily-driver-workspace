@@ -1,0 +1,93 @@
+{
+  "skill_name": "daily-driver",
+  "iteration": 1,
+  "timestamp": "2026-04-03T23:45:00Z",
+  "configs": [
+    {
+      "name": "with_skill",
+      "runs": [
+        {
+          "eval_id": "eval-1-start-work",
+          "pass_rate": 1.0,
+          "passed": 3,
+          "failed": 0,
+          "total": 3,
+          "duration_seconds": 78.2,
+          "tokens": 35905
+        },
+        {
+          "eval_id": "eval-2-create-task",
+          "pass_rate": 1.0,
+          "passed": 3,
+          "failed": 0,
+          "total": 3,
+          "duration_seconds": 94.6,
+          "tokens": 36021
+        },
+        {
+          "eval_id": "eval-3-complete-task",
+          "pass_rate": 1.0,
+          "passed": 3,
+          "failed": 0,
+          "total": 3,
+          "duration_seconds": 373.2,
+          "tokens": 30367
+        }
+      ],
+      "summary": {
+        "mean_pass_rate": 1.0,
+        "mean_duration_seconds": 182.0,
+        "mean_tokens": 34098,
+        "std_pass_rate": 0.0,
+        "std_duration_seconds": 147.5,
+        "std_tokens": 2847
+      }
+    },
+    {
+      "name": "without_skill",
+      "runs": [
+        {
+          "eval_id": "eval-1-start-work",
+          "pass_rate": 0.67,
+          "passed": 2,
+          "failed": 1,
+          "total": 3,
+          "duration_seconds": 93.3,
+          "tokens": 30266
+        },
+        {
+          "eval_id": "eval-2-create-task",
+          "pass_rate": 0.67,
+          "passed": 2,
+          "failed": 1,
+          "total": 3,
+          "duration_seconds": 87.3,
+          "tokens": 33869
+        },
+        {
+          "eval_id": "eval-3-complete-task",
+          "pass_rate": 1.0,
+          "passed": 3,
+          "failed": 0,
+          "total": 3,
+          "duration_seconds": 85.3,
+          "tokens": 30344
+        }
+      ],
+      "summary": {
+        "mean_pass_rate": 0.78,
+        "mean_duration_seconds": 88.6,
+        "mean_tokens": 31493,
+        "std_pass_rate": 0.17,
+        "std_duration_seconds": 4.0,
+        "std_tokens": 1837
+      }
+    }
+  ],
+  "comparison": {
+    "pass_rate_delta": 0.22,
+    "duration_delta_seconds": 93.4,
+    "tokens_delta": 2605,
+    "interpretation": "with_skill版本在pass rate上显著优于baseline(+22%),但耗时更长(+93秒),tokens使用更多(+2605)"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "eval_id": 3,
+  "eval_name": "complete-task",
+  "prompt": "完成(假设当前有任务M1正在进行中)",
+  "assertions": [
+    {
+      "name": "状态更新",
+      "description": "任务状态从进行中改为完成",
+      "check": "输出中包含'已完成'或状态标记为✅"
+    },
+    {
+      "name": "文件更新",
+      "description": "更新task_plan.md和progress.md",
+      "check": "输出中提到更新了task_plan.md或progress.md"
+    },
+    {
+      "name": "每日记录同步",
+      "description": "每日记录中任务状态更新",
+      "check": "每日记录文件被更新或输出中提到更新主日志"
+    }
+  ]
+}

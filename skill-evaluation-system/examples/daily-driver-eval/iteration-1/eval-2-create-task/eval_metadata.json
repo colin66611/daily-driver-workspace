@@ -1,0 +1,22 @@
+{
+  "eval_id": 2,
+  "eval_name": "create-task",
+  "prompt": "我要创建一个任务M1,学习Tauri框架的基本用法,目标是能够搭建一个简单的桌面应用",
+  "assertions": [
+    {
+      "name": "文件创建",
+      "description": "创建任务文件夹和必要的文件",
+      "check": "存在task_M1相关文件夹或输出中提到创建了文件夹"
+    },
+    {
+      "name": "三文件完整性",
+      "description": "包含task_plan.md, progress.md, findings.md",
+      "check": "输出中提到三个文件或至少包含task_plan.md"
+    },
+    {
+      "name": "内容结构正确",
+      "description": "task_plan.md包含任务目标、完成标准等必要字段",
+      "check": "task_plan.md包含'任务目标'或'完成标准'相关内容"
+    }
+  ]
+}

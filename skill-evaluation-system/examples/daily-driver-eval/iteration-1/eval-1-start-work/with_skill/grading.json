@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "检测今日状态",
+      "passed": true,
+      "evidence": "输出明确显示'今日文件夹已存在',包含日期2026-04-03"
+    },
+    {
+      "text": "显示现有任务",
+      "passed": true,
+      "evidence": "正确显示了M1任务列表,包含状态'进行中'和进度详情"
+    },
+    {
+      "text": "用户指引清晰",
+      "passed": true,
+      "evidence": "输出包含'你可以'部分,提供了继续任务、添加新任务等明确选项"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 78.2
+  }
+}

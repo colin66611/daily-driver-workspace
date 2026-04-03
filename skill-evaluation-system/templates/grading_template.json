@@ -1,0 +1,18 @@
+{
+  "expectations": [
+    {
+      "text": "[检查项名称]",
+      "passed": true,
+      "evidence": "[支持判断的证据]"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "timing": {
+    "executor_duration_seconds": 0
+  }
+}

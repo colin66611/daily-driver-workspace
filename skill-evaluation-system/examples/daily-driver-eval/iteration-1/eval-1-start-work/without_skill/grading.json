@@ -1,0 +1,28 @@
+{
+  "expectations": [
+    {
+      "text": "检测今日状态",
+      "passed": true,
+      "evidence": "检查了今日文件夹状态,显示已存在"
+    },
+    {
+      "text": "显示现有任务",
+      "passed": true,
+      "evidence": "读取并显示了今日现有任务M1和昨日未完成任务M2"
+    },
+    {
+      "text": "用户指引清晰",
+      "passed": false,
+      "evidence": "输出了状态报告,但未提供明确的下一步用户选项或交互提示"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.67
+  },
+  "timing": {
+    "executor_duration_seconds": 93.3
+  }
+}

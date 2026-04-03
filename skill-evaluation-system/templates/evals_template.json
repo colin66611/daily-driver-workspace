@@ -1,0 +1,45 @@
+{
+  "skill_name": "[你的skill名称]",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "[用户真实会说的prompt - 启动场景]",
+      "expected_output": "[预期输出描述]",
+      "files": [],
+      "assertions": [
+        {
+          "name": "[检查项1]",
+          "check": "[可验证的条件]"
+        },
+        {
+          "name": "[检查项2]",
+          "check": "[可验证的条件]"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "[用户真实会说的prompt - 核心功能场景]",
+      "expected_output": "[预期输出描述]",
+      "files": [],
+      "assertions": [
+        {
+          "name": "[检查项1]",
+          "check": "[可验证的条件]"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "[用户真实会说的prompt - 完成/收尾场景]",
+      "expected_output": "[预期输出描述]",
+      "files": [],
+      "assertions": [
+        {
+          "name": "[检查项1]",
+          "check": "[可验证的条件]"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "daily-driver",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "开始今天的工作",
+      "expected_output": "检测到今天是2026-04-03,创建今日文件夹和每日记录文件,询问今天要做什么任务",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "prompt": "我要创建一个任务M1,学习Tauri框架的基本用法,目标是能够搭建一个简单的桌面应用",
+      "expected_output": "创建task_M1_学习Tauri框架文件夹,生成task_plan.md/findings.md/progress.md三个文件,在每日记录中添加M1任务条目",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 3,
+      "prompt": "完成",
+      "expected_output": "将当前任务的task_plan.md状态改为✅完成,更新每日记录中的任务状态,创建完成记录",
+      "files": [],
+      "assertions": []
+    }
+  ]
+}

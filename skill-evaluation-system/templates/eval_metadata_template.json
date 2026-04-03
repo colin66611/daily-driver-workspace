@@ -1,0 +1,11 @@
+{
+  "eval_id": 1,
+  "eval_name": "[测试名称]",
+  "prompt": "[测试prompt]",
+  "assertions": [
+    {
+      "name": "[检查项名称]",
+      "check": "[检查条件]"
+    }
+  ]
+}

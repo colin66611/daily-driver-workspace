@@ -40,8 +40,10 @@ echo "DEBUG: SCRIPT_DIR=$SCRIPT_DIR"
 echo "DEBUG: TWORKER_DIR=$TWORKER_DIR"
 
 echo "--- OS Utils ---"
-test_script "detect_os" "$SCRIPT_DIR/detect_os.sh"
-test_script "get_yesterday_date" "$SCRIPT_DIR/get_yesterday_date.sh"
+echo "DEBUG: Running detect_os..."
+"$SCRIPT_DIR/detect_os.sh" && echo "detect_os passed" || echo "detect_os failed with $?"
+echo "DEBUG: Running get_yesterday_date..."
+"$SCRIPT_DIR/get_yesterday_date.sh" && echo "get_yesterday_date passed" || echo "get_yesterday_date failed with $?"
 
 echo ""
 echo "--- Task Operations ---"

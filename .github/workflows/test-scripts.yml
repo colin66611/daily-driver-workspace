@@ -1,0 +1,23 @@
+name: Test Skill Scripts
+
+on:
+  push:
+    paths:
+      - '.claude/skills/**/*.sh'
+      - 'test_skills.sh'
+      - '.github/workflows/test-scripts.yml'
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Run tests
+        run: bash test_skills.sh

@@ -10,7 +10,7 @@ description: 每日工作流启动和收尾管理工具。当用户说"开始今
 - 每一步确认后立即创建/更新文件
 - 强制闭环，而不是悬空对话
 
-**⚠️ 实时文件更新原则**：
+**实时文件更新原则**：
 1. **立即创建**：任务确认后立即创建文件夹和文件
 2. **实时更新**：每步进展后立即更新相应文件
 3. **版本追踪**：通过文件版本追踪完整工作历史
@@ -30,29 +30,14 @@ description: 每日工作流启动和收尾管理工具。当用户说"开始今
 - 跳过本阶段，直接进入阶段 1（显示现有任务）
 - 不再询问昨天任务的延续
 
-**目的**：
-- 自动检测昨天的未完成任务
-- 询问用户是否要延续到今天
-- 避免重复输入和任务遗漏
-
 **执行流程**：
 
 #### 步骤1：查找昨天的任务目录
 
-使用Read工具查找昨天的所有任务目录：
+运行脚本获取昨天的任务：
 ```bash
-# 计算昨天的日期（macOS）
-yesterday=$(date -v-1d '+%Y-%m-%d' 2>/dev/null)
-
-# 如果上述失败，使用GNU date格式（Linux兼容）
-if [ -z "$yesterday" ]; then
-    yesterday=$(date -d 'yesterday' '+%Y-%m-%d' 2>/dev/null)
-fi
-
-daily_path="${PWD}/others/daily"
-
-# 查找昨天的任务目录
-ls -d "$daily_path/$yesterday"/task_*/ 2>/dev/null
+yesterday=$("${SKILL_DIR}/scripts/get_yesterday_date.sh")
+ls -d "${PWD}/others/daily/$yesterday"/task_*/ 2>/dev/null
 ```
 
 **如果昨天的目录不存在或没有任务**：
@@ -61,18 +46,13 @@ ls -d "$daily_path/$yesterday"/task_*/ 2>/dev/null
 
 #### 步骤2：读取每个任务的状态
 
-对于每个任务目录，使用Read工具读取 `task_plan.md` 的**第3行**：
+对于每个任务目录，使用Read工具读取 `task_plan.md` 的状态行：
 
-检查第3行内容：
-```markdown
-**任务状态**: ⏸ 进行中  ← 如果是这个状态，说明未完成
-```
-
-筛选条件：
+检查状态：
 - ✅ `⏸ 进行中` - 未完成，需要延续
 - ❌ `✅ 完成` - 已完成，不需要延续
 
-#### 步骤3：使用AskUserQuestion询问用户
+#### 步骤3：询问用户
 
 如果检测到未完成任务，向用户展示：
 
@@ -80,10 +60,6 @@ ls -d "$daily_path/$yesterday"/task_*/ 2>/dev/null
 检测到昨天的以下未完成任务：
 
 • M1: [任务名]
-  状态: ⏸ 进行中
-  创建时间: [日期]
-
-• M2: [任务名]
   状态: ⏸ 进行中
   创建时间: [日期]
 
@@ -106,49 +82,23 @@ ls -d "$daily_path/$yesterday"/task_*/ 2>/dev/null
 
 **选项1：全部延续**
 ```bash
-# 对于每个未完成任务：
-yesterday=$(date -v-1d '+%Y-%m-%d' 2>/dev/null || date -d 'yesterday' '+%Y-%m-%d')
-today=$(date '+%Y-%m-%d')
-
-# 复制任务文件夹到今天
-cp -r "$daily_path/$yesterday/task_M1_*/" "$daily_path/$today/"
-cp -r "$daily_path/$yesterday/task_M2_*/" "$daily_path/$today/"
-# ... 其他任务
-
-# 更新task_plan.md的"最后更新"时间
-today_time=$(date '+%Y-%m-%d %H:%M')
-find "$daily_path/$today" -name "task_plan.md" -exec sed -i '' "s/\*\*最后更新\*\*: .*/\*\*最后更新\*\*: $today_time/" {} \;
+"${SKILL_DIR}/scripts/continue_tasks.sh" "M1 M2 M3"
 ```
 
 **选项2：选择性延续**
 - 再次使用AskUserQuestion，列出每个任务
 - 让用户选择要延续的任务
-- 只复制用户选择的任务
+- 只延续用户选择的任务
 
 **选项3：不延续**
 - 跳过，直接进入阶段1
 - 昨天的任务保持原样
 
-#### 步骤5：记录延续信息到progress.md
+#### 步骤5：记录延续信息
 
-如果任务被延续，在该任务的 `progress.md` 中添加：
-
+任务延续后，在每个延续任务的 `progress.md` 中添加 session 记录：
 ```bash
-task_name="task_M1_任务简名"
-today_date=$(date '+%Y-%m-%d')
-yesterday_date=$yesterday
-current_time=$(date '+%H:%M')
-
-echo "
-## Session 2: $today_date
-
-### $current_time - 任务延续
-- 📅 延续自：$yesterday_date
-- 🔗 原任务：[[../../../$yesterday_date/$task_name/task_plan.md|昨天的任务]]
-- 📍 当前状态：继续执行
-
----
-" >> "$daily_path/$today/$task_name/progress.md"
+"${SKILL_DIR}/scripts/append_session_to_progress.sh" "$task_path/progress.md" "$yesterday"
 ```
 
 ---
@@ -157,62 +107,18 @@ echo "
 
 **触发**：用户确认今日工作开始后
 
-**前置检查**：
-```
-如果 (用户说了"并行") 或 (今天文件夹已存在):
-    → 跳过阶段 0.5（不检查昨天任务）
-    → 直接进入阶段 2（显示现有任务）
-否则:
-    → 先执行阶段 0.5（检查昨天任务）
-    → 再执行阶段 1（创建今天文件夹）
-```
-
-**动作**：
-
+**检查今日状态**：
 ```bash
-# 先检查今日文件夹是否已存在（支持多窗口并行）
-today_path="${PWD}/others/daily/$(date '+%Y-%m-%d')"
-today_record="$today_path/$(date '+%Y-%m-%d').md"
+"${SKILL_DIR}/scripts/check_today_exists.sh"
+```
 
-if [ -d "$today_path" ] && [ -f "$today_record" ]; then
-    # 今日已初始化，跳过创建，显示现有任务
-    echo "✅ 今日工作区已存在，跳过初始化"
-    
-    # 显示现有任务列表
-    existing_tasks=$(ls -d "$today_path"/task_*/ 2>/dev/null | wc -l | tr -d ' ')
-    if [ "$existing_tasks" -gt 0 ]; then
-        echo "📋 当前已有 $existing_tasks 个任务："
-        for task_dir in "$today_path"/task_*/; do
-            if [ -d "$task_dir" ]; then
-                task_name=$(basename "$task_dir")
-                status=$(grep '任务状态' "$task_dir/task_plan.md" 2>/dev/null | cut -d ':' -f 2 | tr -d ' ')
-                echo "  • $task_name: $status"
-            fi
-        done
-        echo ""
-        echo "要继续哪个任务？或添加新任务？"
-    fi
-    # 跳过创建，直接进入阶段 2
-else
-    # 今日未初始化，执行正常创建流程
-    echo "🆕 开始新的工作日"
-fi
+**如果今日已初始化**：
+- 显示现有任务列表
+- 询问用户要继续哪个任务，或添加新任务
 
-# 仅在不存在时创建
-if [ ! -d "$today_path" ]; then
-    mkdir -p "$today_path"
-    
-    echo "# $(date '+%Y-%m-%d')
-
-## 主线任务
-待确认
-
-## 副线探索
-待添加
-
-## 今日新增想法
-待添加" > "$today_record"
-fi
+**如果今日未初始化**：
+```bash
+"${SKILL_DIR}/scripts/create_today_folder.sh"
 ```
 
 ---
@@ -220,8 +126,6 @@ fi
 ### 阶段 2：任务确认
 
 **触发**：今日文件夹创建后，或检测到并行执行时
-
-**动作**：
 
 1. **如果是并行执行**（用户说了"并行"或今天文件夹已存在）：
    - 直接显示今天已有的任务列表
@@ -247,88 +151,23 @@ fi
 - 说一个新的任务
 ```
 
-4. **根据用户回答创建任务**：进入阶段 3
+3. **根据用户回答创建任务**：进入阶段 3
 
 ---
 
 ### 阶段 3：任务确认后立即创建任务文件夹
 
 **触发**：每个任务确认后（M1、M2、M3）
-**动作**：为每个确认的任务：
 
+**创建任务**：
 ```bash
-# 创建任务文件夹
-mkdir -p "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/"
-
-# 立即创建三文件
-# 1. task_plan.md
-cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/task_plan.md" << 'EOF'
-# 任务计划：M1 - [任务名]
-
-**任务状态**: ⏸ 进行中
-**创建时间**: $(date '+%Y-%m-%d %H:%M')
-**最后更新**: $(date '+%Y-%m-%d %H:%M')
-
-## 任务目标
-[确认的目标]
-
-## 预期交付物
-[确认的交付物]
-
-## 完成标准
-- [ ] [标准1]
-- [ ] [标准2]
-- [ ] [标准3]
-
-## 执行阶段
-### Phase 1: [阶段名]
-- [ ] 步骤1
-- [ ] 步骤2
-
-## 下一步行动
-1. [最优先的下一步]
-
-## 当前障碍
-[无 / 具体障碍描述]
-
-## 错误记录
-| Error | Attempt | Resolution |
-|-------|---------|------------|
-EOF
-
-# 2. findings.md
-cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/findings.md" << 'EOF'
-# 研究发现：M1 - [任务名]
-
-## 关键发现
-
-## 参考资料
-EOF
-
-# 3. progress.md
-cat > "${PWD}/others/daily/$(date '+%Y-%m-%d')/task_M1_任务简名/progress.md" << 'EOF'
-# 进展日志：M1 - [任务名]
-
-## Session 1: $(date '+%Y-%m-%d')
-
-### $(date '+%H:%M') - 任务初始化
-- ✅ 创建 task_plan.md
-- ✅ 创建 findings.md
-- ✅ 创建 progress.md
-- 📍 当前状态：准备开始
-
----
-
-## 下一步
-1. [具体行动]
-EOF
+"${SKILL_DIR}/scripts/create_task.sh" "M1" "任务简名" "[目标]" "[交付物]"
 ```
 
-**同时更新今日记录文件**：
-```bash
-# 添加任务到今日记录
-echo "- M1: [任务名] (状态: ⏸ 进行中)" >> "${PWD}/others/daily/$(date '+%Y-%m-%d')/$(date '+%Y-%m-%d').md"
-```
+脚本会自动：
+- 创建任务文件夹 `task_M1_任务简名/`
+- 创建 `task_plan.md`、`findings.md`、`progress.md` 三个文件
+- 在每日记录中添加任务条目
 
 ---
 
@@ -336,20 +175,16 @@ echo "- M1: [任务名] (状态: ⏸ 进行中)" >> "${PWD}/others/daily/$(date 
 
 **在 task_worker 执行过程中**：
 
-1. **每完成一个操作**：更新 progress.md
-2. **每有一个发现**：追加到 findings.md  
+1. **每完成一个操作**：追加到 progress.md
+2. **每有一个发现**：追加到 findings.md
 3. **每完成一个阶段**：更新 task_plan.md 的状态
 4. **遇到错误**：记录到 task_plan.md 的错误表格
 
-示例（发现新信息时）：
+**记录发现**：
 ```bash
-echo "
-### Finding 1: [标题]
-- **发现时间**: $(date '+%Y-%m-%d %H:%M')
-- **来源**: [搜索/阅读/分析]
-- **核心内容**: [详细描述]
-- **关键洞察**: [为什么重要]
-- **可行动项**: [下一步]" >> "/path/to/task/findings.md"
+"${SKILL_DIR}/scripts/append_finding.sh" \
+  "$task_path/findings.md" \
+  "[标题]" "[来源]" "[核心内容]" "[关键洞察]" "[可行动项]"
 ```
 
 ---
@@ -357,44 +192,66 @@ echo "
 ### 阶段 5：任务完成时更新
 
 **触发**：用户说"完成"或任务达成标准
+
 **动作**：
 
-1. **更新 task_plan.md**：
-   ```bash
-   # 标记任务为完成
-   sed -i '' 's/⏸ 进行中/✅ 完成/' "/path/to/task/task_plan.md"
-   # 更新完成时间
-   sed -i '' "s/最后更新: .*/最后更新: $(date '+%Y-%m-%d %H:%M')/" "/path/to/task/task_plan.md"
-   ```
+1. **标记任务完成**：
+```bash
+"${SKILL_DIR}/scripts/mark_complete.sh" "$task_path/task_plan.md"
+```
 
-2. **更新今日记录**：
-   ```bash
-   # 标记任务为完成
-   sed -i '' 's/M1: .* (状态: ⏸ 进行中)/M1: [任务名] (状态: ✅ 完成)/' "/path/to/daily/YYYY-MM-DD.md"
-   ```
+2. **更新每日记录**：
+```bash
+"${SKILL_DIR}/scripts/update_task_status.sh" \
+  "${PWD}/others/daily/$(date '+%Y-%m-%d')/$(date '+%Y-%m-%d').md" \
+  "M1: .* (状态: ⏸ 进行中)" \
+  "M1: [任务名] (状态: ✅ 完成)"
+```
 
 3. **创建完成记录**：
-   ```bash
-   echo "
-### $(date '+%H:%M') - 任务完成
-- 🎉 核心成果: [一句话]
-- ✅ 完成标准: [哪些达成了]" >> "/path/to/task/progress.md"
-   ```
+```bash
+"${SKILL_DIR}/scripts/create_completion_record.sh" \
+  "$task_path/progress.md" \
+  "$task_path/findings.md" \
+  "$task_path/task_plan.md" \
+  "[一句话总结]"
+```
 
 ---
 
 ### 阶段 6：收尾时归档
 
 **触发**：用户说"结束今天"
+
 **动作**：
 
 1. **检查未完成任务**：读取所有 task_plan.md 的状态
 2. **生成完成报告**：基于文件内容生成总结
-3. **移动已完成任务到归档**：
-   ```bash
-   mv "/path/to/task_M1_*/" "${PWD}/others/daily/completed/"
-   ```
+3. **归档已完成的任务**：
+```bash
+"${SKILL_DIR}/scripts/archive_task.sh" "$task_path"
+```
 
 4. **更新停车场**：读取/更新 `_Idea-Parking-Lot.md`
 
 ---
+
+## 可用脚本列表
+
+### daily-driver/scripts/
+
+| 脚本 | 用途 |
+|------|------|
+| `detect_os.sh` | 检测操作系统类型 |
+| `get_yesterday_date.sh` | 获取昨天日期 |
+| `check_today_exists.sh` | 检查今日文件夹是否存在 |
+| `create_today_folder.sh` | 创建今日文件夹 |
+| `create_task.sh` | 创建任务及三文件 |
+| `continue_tasks.sh` | 延续昨天的任务 |
+| `update_last_modified.sh` | 更新时间戳 |
+| `update_task_status.sh` | 更新任务状态 |
+| `append_session_to_progress.sh` | 追加 session 记录 |
+| `append_finding.sh` | 追加发现记录 |
+| `archive_task.sh` | 归档任务 |
+
+> 注意：`${SKILL_DIR}` 是 skill 目录路径，如 `~/.claude/skills/daily-driver`

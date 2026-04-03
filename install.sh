@@ -1,9 +1,55 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Daily Driver Workspace 安装脚本
 # 用法: ./install.sh
+# 支持: macOS, Linux, Windows Git Bash
 
 set -e  # 遇到错误立即退出
+
+# ============================================
+# 跨平台检测与工具函数
+# ============================================
+
+# 检测操作系统类型（仅区分 Mac / Windows，Linux 归为 Unix）
+detect_os() {
+    # 先检测 Mac（最准确：sw_vers 是 Mac 独有的）
+    if command -v sw_vers > /dev/null 2>&1; then
+        echo "macOS"
+    # 检测 Windows（Git Bash / MSYS / Cygwin）
+    elif [ -n "$COMSPEC" ] || [[ "$(uname -o 2>/dev/null)" == *"Msys"* ]] || [[ "$OSTYPE" == *"msys"* ]]; then
+        echo "Windows"
+    else
+        echo "Linux/Unix"
+    fi
+}
+
+OS_TYPE=$(detect_os)
+echo "检测到操作系统: $OS_TYPE"
+
+# 获取昨天的日期（跨平台）
+get_yesterday_date() {
+    case "$OS_TYPE" in
+        macOS)
+            date -v-1d '+%Y-%m-%d'
+            ;;
+        Windows)
+            # Git Bash / MSYS 支持 date -d
+            date -d 'yesterday' '+%Y-%m-%d' 2>/dev/null || \
+            python3 -c "from datetime import date, timedelta; print((date.today() - timedelta(1)).isoformat())"
+            ;;
+        *)
+            date -d 'yesterday' '+%Y-%m-%d'
+            ;;
+    esac
+}
+
+# 获取当前日期
+get_today_date() {
+    date '+%Y-%m-%d'
+}
+
+# sed -i 的跨平台写法（已废弃，改用内联 fallback）
+# 现在直接在命令后加 || fallback，更简洁
 
 echo "🚀 Daily Driver Workspace 安装程序"
 echo "====================================="

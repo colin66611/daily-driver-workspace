@@ -16,10 +16,10 @@ fi
 current_time=$(date '+%H:%M')
 
 # Count findings
-finding_count=$(grep -c '### Finding' "$findings_file" 2>/dev/null || echo "0")
+finding_count=$(grep -c '### Finding' "$findings_file" 2>/dev/null)
 
 # Count errors
-error_count=$(grep -c '| Error ' "$plan_file" 2>/dev/null || echo "0")
+error_count=$(grep -c '| Error ' "$plan_file" 2>/dev/null)
 
 cat >> "$progress_file" << EOF
 

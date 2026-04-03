@@ -20,7 +20,7 @@ attempt_num="${attempt_num:-1}"
 solution="${solution:-[待解决]}"
 
 # Append to task_plan.md error table
-error_count=$(grep -c '| Error ' "$plan_file" 2>/dev/null || echo "0")
+error_count=$(grep -c '| Error ' "$plan_file" 2>/dev/null)
 error_count=$((error_count + 1))
 
 cat >> "$plan_file" << EOF

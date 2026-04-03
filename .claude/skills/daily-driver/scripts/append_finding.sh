@@ -23,7 +23,7 @@ insight="${insight:-[洞察]}"
 action="${action:-[行动]}"
 
 findings_time=$(date '+%Y-%m-%d %H:%M')
-finding_num=$(grep -c "### Finding" "$findings_file" 2>/dev/null || echo "0")
+finding_num=$(grep -c "### Finding" "$findings_file" 2>/dev/null)
 finding_num=$((finding_num + 1))
 
 cat >> "$findings_file" << EOF

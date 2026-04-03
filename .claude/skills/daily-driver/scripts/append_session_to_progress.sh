@@ -13,7 +13,7 @@ fi
 
 today_date=$(date '+%Y-%m-%d')
 current_time=$(date '+%H:%M')
-session_num=$(grep -c "Session" "$progress_file" 2>/dev/null || echo "0")
+session_num=$(grep -c "Session" "$progress_file" 2>/dev/null)
 session_num=$((session_num + 1))
 
 cat >> "$progress_file" << EOF

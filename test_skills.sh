@@ -2,7 +2,6 @@
 # Skill Scripts Test Suite
 # Run this to verify all scripts work correctly
 
-# Trigger CI for debugging
 set -e
 
 echo "==================================="
@@ -18,16 +17,11 @@ test_script() {
     local name="$1"
     local cmd="$2"
     echo -n "Testing: $name ... "
-    local output
-    local exit_code
-    output=$(eval "$cmd" 2>&1)
-    exit_code=$?
-    if [ $exit_code -eq 0 ]; then
+    if eval "$cmd" > /dev/null 2>&1; then
         echo "✓ PASS"
         PASS=$((PASS + 1))
     else
-        echo "✗ FAIL (exit: $exit_code)"
-        echo "  Error: $output" | head -3
+        echo "✗ FAIL"
         FAIL=$((FAIL + 1))
     fi
 }

@@ -27,7 +27,11 @@ test_script() {
 }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.claude/skills/daily-driver/scripts"
-TWORKER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.claude/skills/task-worker/scripts/"
+TWORKER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.claude/skills/task-worker/scripts"
+
+# Debug: show SCRIPT_DIR in CI
+echo "DEBUG: SCRIPT_DIR=$SCRIPT_DIR"
+echo "DEBUG: TWORKER_DIR=$TWORKER_DIR"
 
 echo "--- OS Utils ---"
 test_script "detect_os" "$SCRIPT_DIR/detect_os.sh"

@@ -93,6 +93,7 @@ mkdir -p ~/.claude/skills
 # 复制 daily-driver skill
 if [ -d "$SCRIPT_DIR/.claude/skills/daily-driver" ]; then
     cp -r "$SCRIPT_DIR/.claude/skills/daily-driver" ~/.claude/skills/
+    chmod +x ~/.claude/skills/daily-driver/scripts/*.sh 2>/dev/null || true
     echo -e "${GREEN}✅ daily-driver skill 安装成功${NC}"
 else
     echo -e "${YELLOW}⚠️  daily-driver skill 源文件不存在${NC}"
@@ -101,6 +102,7 @@ fi
 # 复制 task-worker skill
 if [ -d "$SCRIPT_DIR/.claude/skills/task-worker" ]; then
     cp -r "$SCRIPT_DIR/.claude/skills/task-worker" ~/.claude/skills/
+    chmod +x ~/.claude/skills/task-worker/scripts/*.sh 2>/dev/null || true
     echo -e "${GREEN}✅ task-worker skill 安装成功${NC}"
 else
     echo -e "${YELLOW}⚠️  task-worker skill 源文件不存在${NC}"

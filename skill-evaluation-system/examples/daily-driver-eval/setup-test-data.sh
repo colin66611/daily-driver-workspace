@@ -4,7 +4,10 @@
 set -e
 
 # 配置
-DAILY_DIR="/Users/Zhuanz/Projects/daily-driver-workspace/others/daily"
+# 支持通过环境变量覆盖，默认使用脚本所在位置向上推导工作区根目录
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSPACE_ROOT="${DAILY_DRIVER_WORKSPACE:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+DAILY_DIR="${WORKSPACE_ROOT}/others/daily"
 
 # 颜色输出
 GREEN='\033[0;32m'

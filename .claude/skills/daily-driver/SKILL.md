@@ -195,22 +195,21 @@ ls -d "${PWD}/others/daily/$yesterday"/task_*/ 2>/dev/null
 
 **动作**：
 
-1. **标记任务完成**：
+1. **标记任务完成**（使用 task-worker 脚本）：
 ```bash
-"${SKILL_DIR}/scripts/mark_complete.sh" "$task_path/task_plan.md"
+TASK_WORKER_DIR="${SKILL_DIR}/../task-worker"
+"${TASK_WORKER_DIR}/scripts/mark_complete.sh" "$task_path/task_plan.md"
 ```
 
-2. **更新每日记录**：
+2. **更新每日记录**（使用 task-worker 脚本）：
 ```bash
-"${SKILL_DIR}/scripts/update_task_status.sh" \
-  "${PWD}/others/daily/$(date '+%Y-%m-%d')/$(date '+%Y-%m-%d').md" \
-  "M1: .* (状态: ⏸ 进行中)" \
-  "M1: [任务名] (状态: ✅ 完成)"
+daily_record="${PWD}/others/daily/$(date '+%Y-%m-%d')/$(date '+%Y-%m-%d').md"
+"${TASK_WORKER_DIR}/scripts/mark_task_complete_in_daily.sh" "$daily_record" "M{N}"
 ```
 
-3. **创建完成记录**：
+3. **创建完成记录**（使用 task-worker 脚本）：
 ```bash
-"${SKILL_DIR}/scripts/create_completion_record.sh" \
+"${TASK_WORKER_DIR}/scripts/create_completion_record.sh" \
   "$task_path/progress.md" \
   "$task_path/findings.md" \
   "$task_path/task_plan.md" \
@@ -238,7 +237,7 @@ ls -d "${PWD}/others/daily/$yesterday"/task_*/ 2>/dev/null
 
 ## 可用脚本列表
 
-### daily-driver/scripts/
+### daily-driver/scripts/（`${SKILL_DIR}/scripts/`）
 
 | 脚本 | 用途 |
 |------|------|
@@ -254,4 +253,13 @@ ls -d "${PWD}/others/daily/$yesterday"/task_*/ 2>/dev/null
 | `append_finding.sh` | 追加发现记录 |
 | `archive_task.sh` | 归档任务 |
 
+### task-worker/scripts/（`${TASK_WORKER_DIR}/scripts/`）
+
+| 脚本 | 用途 |
+|------|------|
+| `mark_complete.sh` | 标记任务完成 |
+| `mark_task_complete_in_daily.sh` | 更新每日记录中的任务状态 |
+| `create_completion_record.sh` | 创建完成记录 |
+
 > 注意：`${SKILL_DIR}` 是 skill 目录路径，如 `~/.claude/skills/daily-driver`
+> `${TASK_WORKER_DIR}` 指向 task-worker skill，即 `${SKILL_DIR}/../task-worker`

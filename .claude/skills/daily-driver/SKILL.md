@@ -19,6 +19,31 @@ description: 每日工作流启动和收尾管理工具。当用户说"开始今
 
 ## 实时文件更新流程
 
+### 阶段 0：工具准备（必做，不可跳过）
+
+本 skill 的阶段 0.5 / 1 / 2 需要调用 `AskUserQuestion`。它是 **deferred tool**：会话启动时只登记了名字，schema 未加载，直接调用会报 `InputValidationError`。
+
+**进入阶段 0.5 前，必须先用 ToolSearch 加载它**：
+
+```
+ToolSearch(query="select:AskUserQuestion", max_results=1)
+```
+
+返回结果里看到 `<function>{"name": "AskUserQuestion", ...}</function>` 才算加载成功。只有加载成功后，后续阶段才能调用 `AskUserQuestion`。
+
+**降级方案**：如果 ToolSearch 加载失败（返回空或报错），不要卡住流程 —— 改用"在对话里直接列出选项、等用户回复"的方式，不依赖 `AskUserQuestion`。格式示例：
+
+```
+📋 请选择：
+1. 全部延续昨天的未完成任务
+2. 选择性延续（请指出哪几个）
+3. 不延续，开始新任务
+
+（请回复数字或描述你的选择）
+```
+
+---
+
 ### 阶段 0.5：检测昨天的未完成任务
 
 **触发条件**（需同时满足）：

@@ -1,40 +1,21 @@
-# macOS
+# OS files
 .DS_Store
-.AppleDouble
-.LSOverride
+Thumbs.db
+desktop.ini
 
-# IDE
-.idea/
-.vscode/
+# Editor files
 *.swp
 *.swo
 *~
+.vscode/
+.idea/
 
-# Node
-node_modules/
-npm-debug.log*
+# Claude files
+.claude/sessions/
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Logs
-logs/
+# Generated files
 *.log
 
-# Environment
-.env
-.env.local
-
-# Backup files
-*.bak
-*.backup
-
-# Obsidian
-.obsidian/workspace.json
-.obsidian/cache
-
 # Temporary files
-.tmp/
+tmp/
 temp/
